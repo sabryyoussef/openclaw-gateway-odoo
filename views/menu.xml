@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Top Level Menu -->
+        <menuitem id="menu_openclaw_root" 
+                  name="OpenClaw API" 
+                  sequence="100"/>
+        
+        <!-- Configuration Sub-menu -->
+        <menuitem id="menu_openclaw_config" 
+                  name="Configuration" 
+                  parent="menu_openclaw_root" 
+                  sequence="10"/>
+        
+        <!-- Skills Menu -->
+        <menuitem id="menu_openclaw_skills" 
+                  name="Skills" 
+                  parent="menu_openclaw_config" 
+                  sequence="10" 
+                  action="action_openclaw_skill"/>
+        
+        <!-- API Tokens Menu -->
+        <menuitem id="menu_openclaw_tokens" 
+                  name="API Tokens" 
+                  parent="menu_openclaw_config" 
+                  sequence="20" 
+                  action="action_openclaw_api_token"/>
+        
+        <!-- Monitoring Sub-menu -->
+        <menuitem id="menu_openclaw_monitoring" 
+                  name="Monitoring" 
+                  parent="menu_openclaw_root" 
+                  sequence="20"/>
+        
+        <!-- Request Logs Menu -->
+        <menuitem id="menu_openclaw_logs" 
+                  name="Request Logs" 
+                  parent="menu_openclaw_monitoring" 
+                  sequence="10" 
+                  action="action_openclaw_request_log"/>
+
+        <!-- Webhook Logs + Workflow Jobs: created in post_init_hook (no action ref here to avoid upgrade error) -->
+    </data>
+</odoo>

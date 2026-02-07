@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- 
+            Seed Tokens - Demo Data
+            noupdate="0" means this record WILL be updated on module upgrade
+            This is a demo token that should be disabled/deleted in production
+        -->
+
+        <!-- Demo API Token - CHANGE IN PRODUCTION! -->
+        <record id="token_demo" model="openclaw.api.token">
+            <field name="name">Demo Token (CHANGE IN PRODUCTION)</field>
+            <field name="token">demo_token_change_in_production</field>
+            <field name="active" eval="True"/>
+            <field name="allowed_ip_addresses"></field>
+            <field name="expiry_date" eval="False"/>
+            <!-- Link to all skills -->
+            <field name="allowed_skills" eval="[(6, 0, [
+                ref('skill_ping'),
+                ref('skill_sales'),
+                ref('skill_invoices'),
+                ref('skill_customers'),
+                ref('skill_employees'),
+                ref('skill_products'),
+                ref('skill_users'),
+                ref('skill_create_lead'),
+                ref('skill_summary')
+            ])]"/>
+            <!-- Link to admin group for full access -->
+            <field name="user_roles" eval="[(6, 0, [ref('openclaw_gateway.group_openclaw_api_admin')])]"/>
+        </record>
+
+    </data>
+</odoo>

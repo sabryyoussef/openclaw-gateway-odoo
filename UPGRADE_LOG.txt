@@ -1,0 +1,40 @@
+================================================================================
+OPENCLAW_GATEWAY - UPGRADE LOG
+Date: 2026-02-06 (from /opt/odoo/logs/odoo.log)
+================================================================================
+
+FIXES APPLIED (before this upgrade):
+------------------------------------
+1. api_token.py: Added action_generate_token() so the "Generate Token" button
+   in the form view is valid.
+2. api_token_views.xml: Removed inline tree for allowed_skills (sequence/fields
+   were validated against openclaw.api.token); use mode="tags" for many2many.
+3. request_log.py: Added action_view_raw_json() for the "View Raw JSON" button
+   in request log form view.
+
+UPGRADE RESULT: SUCCESS
+-----------------------
+- Module openclaw_gateway loaded in 1.55s, 316 queries
+- security/security.xml, ir.model.access.csv loaded
+- views: skill_views.xml, api_token_views.xml, request_log_views.xml, menu.xml
+- data: seed_skills.xml, seed_tokens.xml
+- No errors or warnings from openclaw_gateway
+
+--------------------------------------------------------------------------------
+RAW EXTRACT FROM ODOO LOG (latest upgrade run):
+--------------------------------------------------------------------------------
+
+2026-02-06 17:59:11,412 336506 INFO odoo odoo.modules.loading: Loading module openclaw_gateway (69/69)
+2026-02-06 17:59:11,874 336506 INFO odoo odoo.modules.registry: module openclaw_gateway: creating or updating database tables
+2026-02-06 17:59:12,169 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/security/security.xml
+2026-02-06 17:59:12,776 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/security/ir.model.access.csv
+2026-02-06 17:59:12,802 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/views/skill_views.xml
+2026-02-06 17:59:12,836 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/views/api_token_views.xml
+2026-02-06 17:59:12,855 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/views/request_log_views.xml
+2026-02-06 17:59:12,883 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/views/menu.xml
+2026-02-06 17:59:12,921 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/data/seed_skills.xml
+2026-02-06 17:59:12,932 336506 INFO odoo odoo.modules.loading: loading openclaw_gateway/data/seed_tokens.xml
+2026-02-06 17:59:12,967 336506 INFO odoo odoo.modules.loading: Module openclaw_gateway loaded in 1.55s, 316 queries (+316 other)
+2026-02-06 17:59:14,378 336506 INFO odoo odoo.modules.loading: Modules loaded.
+2026-02-06 17:59:14,388 336506 INFO odoo odoo.modules.registry: Registry loaded in 6.326s
+2026-02-06 17:59:14,388 336506 INFO odoo odoo.service.server: Stopping gracefully

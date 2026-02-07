@@ -1,0 +1,65 @@
+================================================================================
+OPENCLAW_GATEWAY - INSTALL ERROR LOG
+Generated: 2026-02-06 (from /opt/odoo/logs/odoo.log)
+================================================================================
+
+WHERE TO FIX:
+-------------
+File:  models/__init__.py  (line 2)
+Cause: models/__init__.py imports 'skill', 'api_token', 'request_log' but the
+       corresponding Python files are MISSING in the models/ folder.
+
+Missing files in models/:
+  - skill.py
+  - api_token.py
+  - request_log.py
+
+Fix: Either create these model files (skill.py, api_token.py, request_log.py)
+     in openclaw_gateway/models/, or remove/comment their imports in
+     models/__init__.py until the files exist.
+
+Also: __manifest__.py references data files that are not present:
+  - security/security.xml
+  - security/ir.model.access.csv
+  - data/seed_skills.xml
+  - data/seed_tokens.xml
+If those are missing, the install will fail at a later step after fixing the
+import error. Add them or remove from the 'data' list in __manifest__.py.
+
+================================================================================
+FULL TRACEBACK FROM ODOO LOG:
+================================================================================
+
+2026-02-06 12:11:24,983 307967 INFO odoo odoo.modules.loading: Loading module openclaw_gateway (70/71)
+2026-02-06 12:11:24,985 307967 CRITICAL odoo odoo.modules.module: Couldn't load module openclaw_gateway
+2026-02-06 12:11:24,988 307967 WARNING odoo odoo.modules.loading: Transient module states were reset
+2026-02-06 12:11:24,989 307967 ERROR odoo odoo.modules.registry: Failed to load registry
+2026-02-06 12:11:24,989 307967 CRITICAL odoo odoo.service.server: Failed to initialize database `odoo`.
+Traceback (most recent call last):
+  File "/opt/odoo/odoo-server/odoo/service/server.py", line 1366, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/odoo/venv/lib/python3.12/site-packages/decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/odoo/odoo-server/odoo/tools/func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/odoo/odoo-server/odoo/modules/registry.py", line 129, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "/opt/odoo/odoo-server/odoo/modules/loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+                         ^^^^^^^^^^^^^^^^^^^
+  File "/opt/odoo/odoo-server/odoo/modules/loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "/opt/odoo/odoo-server/odoo/modules/loading.py", line 186, in load_module_graph
+    load_openerp_module(package.name)
+  File "/opt/odoo/odoo-server/odoo/modules/module.py", line 384, in load_openerp_module
+    __import__(qualname)
+  File "/opt/odoo/custom_addons/openclaw_gateway/__init__.py", line 2, in <module>
+    from . import models
+  File "/opt/odoo/custom_addons/openclaw_gateway/models/__init__.py", line 2, in <module>
+    from . import skill
+ImportError: cannot import name 'skill' from partially initialized module 'odoo.addons.openclaw_gateway.models' (most likely due to a circular import) (/opt/odoo/custom_addons/openclaw_gateway/models/__init__.py)
+2026-02-06 12:11:24,993 307967 INFO odoo odoo.service.server: Stopping gracefully

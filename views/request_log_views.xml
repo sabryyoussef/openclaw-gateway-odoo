@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Request Logs List View -->
+        <record id="view_openclaw_request_log_list" model="ir.ui.view">
+            <field name="name">openclaw.request.log.list</field>
+            <field name="model">openclaw.request.log</field>
+            <field name="arch" type="xml">
+                <list string="Request Logs" default_order="create_date desc" create="false" edit="false">
+                    <field name="create_date"/>
+                    <field name="endpoint"/>
+                    <field name="method"/>
+                    <field name="skill_code"/>
+                    <field name="token_name"/>
+                    <field name="status" decoration-success="status == 'ok'" decoration-danger="status == 'error'"/>
+                    <field name="duration_ms"/>
+                    <field name="remote_addr"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Request Logs Form View -->
+        <record id="view_openclaw_request_log_form" model="ir.ui.view">
+            <field name="name">openclaw.request.log.form</field>
+            <field name="model">openclaw.request.log</field>
+            <field name="arch" type="xml">
+                <form string="Request Log" create="false" edit="false">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_raw_json" type="object" 
+                                    class="oe_stat_button" icon="fa-code">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">View</span>
+                                    <span class="o_stat_text">Raw JSON</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group string="Request Info">
+                                <field name="create_date"/>
+                                <field name="endpoint"/>
+                                <field name="method"/>
+                                <field name="skill_code"/>
+                                <field name="remote_addr"/>
+                                <field name="user_agent"/>
+                            </group>
+                            <group string="Response Info">
+                                <field name="token_name"/>
+                                <field name="status"/>
+                                <field name="error"/>
+                                <field name="duration_ms"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Request Payload" name="request">
+                                <field name="request_json" widget="ace" 
+                                       options="{'mode': 'json'}" nolabel="1"/>
+                            </page>
+                            <page string="Response Data" name="response">
+                                <field name="response_json" widget="ace" 
+                                       options="{'mode': 'json'}" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Request Logs Search View -->
+        <record id="view_openclaw_request_log_search" model="ir.ui.view">
+            <field name="name">openclaw.request.log.search</field>
+            <field name="model">openclaw.request.log</field>
+            <field name="arch" type="xml">
+                <search string="Request Logs">
+                    <field name="endpoint"/>
+                    <field name="skill_code"/>
+                    <field name="token_name"/>
+                    <field name="remote_addr"/>
+                    <field name="status"/>
+                    <filter string="Success" name="filter_success" domain="[('status', '=', 'ok')]"/>
+                    <filter string="Errors" name="filter_errors" domain="[('status', '=', 'error')]"/>
+                    <filter string="Today" name="filter_today" 
+                            domain="[('create_date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0, 0, 0)))]"/>
+                    <filter string="Last 7 Days" name="filter_week" 
+                            domain="[('create_date', '&gt;=', (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Endpoint" name="group_endpoint" context="{'group_by': 'endpoint'}"/>
+                        <filter string="Skill" name="group_skill" context="{'group_by': 'skill_code'}"/>
+                        <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                        <filter string="Token" name="group_token" context="{'group_by': 'token_name'}"/>
+                        <filter string="Date" name="group_date" context="{'group_by': 'create_date:day'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Request Logs Action -->
+        <record id="action_openclaw_request_log" model="ir.actions.act_window">
+            <field name="name">Request Logs</field>
+            <field name="res_model">openclaw.request.log</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_filter_today': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    No API requests logged yet
+                </p>
+                <p>
+                    Request logs will appear here when API endpoints are called.
+                    Use the filters to find specific requests or errors.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

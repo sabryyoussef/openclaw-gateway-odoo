@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Skills List View -->
+        <record id="view_openclaw_skill_list" model="ir.ui.view">
+            <field name="name">openclaw.skill.list</field>
+            <field name="model">openclaw.skill</field>
+            <field name="arch" type="xml">
+                <list string="API Skills" default_order="sequence,name">
+                    <field name="sequence" widget="handle"/>
+                    <field name="active" widget="boolean_toggle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="executor"/>
+                    <field name="max_limit"/>
+                    <field name="allowed_roles" widget="many2many_tags"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Skills Form View -->
+        <record id="view_openclaw_skill_form" model="ir.ui.view">
+            <field name="name">openclaw.skill.form</field>
+            <field name="model">openclaw.skill</field>
+            <field name="arch" type="xml">
+                <form string="API Skill">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" 
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" 
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="executor"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group>
+                                <field name="max_limit"/>
+                                <field name="allowed_roles" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Input Schema" name="input_schema">
+                                <field name="input_schema_json" widget="ace" 
+                                       options="{'mode': 'json'}" nolabel="1"/>
+                            </page>
+                            <page string="Output Schema" name="output_schema">
+                                <field name="output_schema_json" widget="ace" 
+                                       options="{'mode': 'json'}" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Skills Action -->
+        <record id="action_openclaw_skill" model="ir.actions.act_window">
+            <field name="name">Skills</field>
+            <field name="res_model">openclaw.skill</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first API skill!
+                </p>
+                <p>
+                    Skills define the available API endpoints and their executors.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

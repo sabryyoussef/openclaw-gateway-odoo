@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- 
+            Seed Skills - Production Data
+            noupdate="1" means these records won't be updated on module upgrade
+            to preserve any customizations made in production
+        -->
+
+        <!-- Skill 1: Ping - Health Check -->
+        <record id="skill_ping" model="openclaw.skill">
+            <field name="name">Ping</field>
+            <field name="code">ping</field>
+            <field name="sequence">10</field>
+            <field name="active" eval="True"/>
+            <field name="description">Health check endpoint - returns pong with timestamp and version info</field>
+            <field name="executor">ping</field>
+            <field name="max_limit">1</field>
+            <field name="input_schema_json">{}</field>
+            <field name="output_schema_json">{"message": "string", "timestamp": "string", "version": "string"}</field>
+        </record>
+
+        <!-- Skill 2: Sales Orders -->
+        <record id="skill_sales" model="openclaw.skill">
+            <field name="name">Sales Orders</field>
+            <field name="code">sales</field>
+            <field name="sequence">20</field>
+            <field name="active" eval="True"/>
+            <field name="description">Query sales orders with optional filters (state, partner_id). Returns order details including customer, amounts, and status.</field>
+            <field name="executor">sales_orders</field>
+            <field name="max_limit">100</field>
+            <field name="input_schema_json">{"limit": "int", "state": "string", "partner_id": "int"}</field>
+            <field name="output_schema_json">{"orders": "array", "count": "int", "total_available": "int"}</field>
+        </record>
+
+        <!-- Skill 3: Invoices -->
+        <record id="skill_invoices" model="openclaw.skill">
+            <field name="name">Invoices</field>
+            <field name="code">invoices</field>
+            <field name="sequence">30</field>
+            <field name="active" eval="True"/>
+            <field name="description">Query customer invoices with optional filters (state, partner_id, move_type). Returns invoice details including amounts, due dates, and payment status.</field>
+            <field name="executor">invoices</field>
+            <field name="max_limit">100</field>
+            <field name="input_schema_json">{"limit": "int", "state": "string", "partner_id": "int", "move_type": "string"}</field>
+            <field name="output_schema_json">{"invoices": "array", "count": "int", "total_available": "int"}</field>
+        </record>
+
+        <!-- Skill 4: Customers -->
+        <record id="skill_customers" model="openclaw.skill">
+            <field name="name">Customers</field>
+            <field name="code">customers</field>
+            <field name="sequence">40</field>
+            <field name="active" eval="True"/>
+            <field name="description">Query customer records with optional filters (is_company, country_id, search). Returns customer contact information and details.</field>
+            <field name="executor">customers</field>
+            <field name="max_limit">100</field>
+            <field name="input_schema_json">{"limit": "int", "is_company": "bool", "country_id": "int", "search": "string"}</field>
+            <field name="output_schema_json">{"customers": "array", "count": "int", "total_available": "int"}</field>
+        </record>
+
+        <!-- Skill 5: Employees -->
+        <record id="skill_employees" model="openclaw.skill">
+            <field name="name">Employees</field>
+            <field name="code">employees</field>
+            <field name="sequence">50</field>
+            <field name="active" eval="True"/>
+            <field name="description">Query employee records with optional filters (department_id, active). Returns employee contact information and job details.</field>
+            <field name="executor">employees</field>
+            <field name="max_limit">100</field>
+            <field name="input_schema_json">{"limit": "int", "department_id": "int", "active": "bool"}</field>
+            <field name="output_schema_json">{"employees": "array", "count": "int", "total_available": "int"}</field>
+        </record>
+
+        <!-- Skill 6: Products -->
+        <record id="skill_products" model="openclaw.skill">
+            <field name="name">Products</field>
+            <field name="code">products</field>
+            <field name="sequence">60</field>
+            <field name="active" eval="True"/>
+            <field name="description">Query product catalog with optional filters (active, sale_ok, search). Returns product details including pricing and availability.</field>
+            <field name="executor">products</field>
+            <field name="max_limit">100</field>
+            <field name="input_schema_json">{"limit": "int", "active": "bool", "sale_ok": "bool", "search": "string"}</field>
+            <field name="output_schema_json">{"products": "array", "count": "int", "total_available": "int"}</field>
+        </record>
+
+        <!-- Skill 7: Users -->
+        <record id="skill_users" model="openclaw.skill">
+            <field name="name">Users</field>
+            <field name="code">users</field>
+            <field name="sequence">70</field>
+            <field name="active" eval="True"/>
+            <field name="description">Query Odoo users with optional filters (active). Returns user account information and company details.</field>
+            <field name="executor">users</field>
+            <field name="max_limit">50</field>
+            <field name="input_schema_json">{"limit": "int", "active": "bool"}</field>
+            <field name="output_schema_json">{"users": "array", "count": "int", "total_available": "int"}</field>
+        </record>
+
+        <!-- Skill 8: Create Lead -->
+        <record id="skill_create_lead" model="openclaw.skill">
+            <field name="name">Create Lead</field>
+            <field name="code">create_lead</field>
+            <field name="sequence">80</field>
+            <field name="active" eval="True"/>
+            <field name="description">Create a new CRM lead/opportunity. Requires 'name' field, supports optional partner info (partner_name, email_from, phone) and description.</field>
+            <field name="executor">create_lead</field>
+            <field name="max_limit">1</field>
+            <field name="input_schema_json">{"name": "string (required)", "partner_name": "string", "email_from": "string", "phone": "string", "description": "string", "user_id": "int", "team_id": "int"}</field>
+            <field name="output_schema_json">{"lead_id": "int", "name": "string", "stage": "string"}</field>
+        </record>
+
+        <!-- Skill 9: Summary - Database Statistics -->
+        <record id="skill_summary" model="openclaw.skill">
+            <field name="name">Summary</field>
+            <field name="code">summary</field>
+            <field name="sequence">90</field>
+            <field name="active" eval="True"/>
+            <field name="description">Get database summary statistics - counts of all major models (sales orders, invoices, customers, employees, products, users, leads).</field>
+            <field name="executor">summary</field>
+            <field name="max_limit">1</field>
+            <field name="input_schema_json">{}</field>
+            <field name="output_schema_json">{"counts": {"sales_orders": "int", "invoices": "int", "customers": "int", "employees": "int", "products": "int", "users": "int", "leads": "int"}}</field>
+        </record>
+
+        <!-- Skill 10 (Bulk Import) and Skill 11 (Advanced Lead) are created in post_init_hook
+             so upgrade works even when server had old Python without these executor options. -->
+
+    </data>
+</odoo>

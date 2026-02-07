@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Security Categories -->
+        <record id="module_category_openclaw" model="ir.module.category">
+            <field name="name">OpenClaw API</field>
+            <field name="description">Manage access to OpenClaw API skills and resources</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Security Groups -->
+        
+        <!-- Admin Group: Full access to all models and skills -->
+        <record id="group_openclaw_api_admin" model="res.groups">
+            <field name="name">OpenClaw API Admin</field>
+            <field name="category_id" ref="module_category_openclaw"/>
+            <field name="comment">Full access to all OpenClaw API features, skills, tokens, and logs</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Sales Group: Access to sales, customers, and leads -->
+        <record id="group_openclaw_sales" model="res.groups">
+            <field name="name">OpenClaw Sales</field>
+            <field name="category_id" ref="module_category_openclaw"/>
+            <field name="comment">Access to sales orders, customers, products, and lead creation</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- HR Group: Access to employees -->
+        <record id="group_openclaw_hr" model="res.groups">
+            <field name="name">OpenClaw HR</field>
+            <field name="category_id" ref="module_category_openclaw"/>
+            <field name="comment">Access to employee information</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Finance Group: Access to invoices -->
+        <record id="group_openclaw_finance" model="res.groups">
+            <field name="name">OpenClaw Finance</field>
+            <field name="category_id" ref="module_category_openclaw"/>
+            <field name="comment">Access to invoices and financial data</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

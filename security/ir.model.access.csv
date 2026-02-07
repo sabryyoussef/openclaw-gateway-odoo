@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_openclaw_skill_admin,openclaw.skill admin,model_openclaw_skill,openclaw_gateway.group_openclaw_api_admin,1,1,1,1
+access_openclaw_skill_user,openclaw.skill user,model_openclaw_skill,base.group_user,1,0,0,0
+access_openclaw_api_token_admin,openclaw.api.token admin,model_openclaw_api_token,openclaw_gateway.group_openclaw_api_admin,1,1,1,1
+access_openclaw_api_token_user,openclaw.api.token user,model_openclaw_api_token,base.group_user,1,0,0,0
+access_openclaw_request_log_admin,openclaw.request.log admin,model_openclaw_request_log,openclaw_gateway.group_openclaw_api_admin,1,1,1,1
+access_openclaw_request_log_user,openclaw.request.log user,model_openclaw_request_log,base.group_user,1,0,0,0
