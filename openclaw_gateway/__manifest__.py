@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'OpenClaw Gateway (API Skills)',
-    'version': '18.0.1.2.0',
+    'version': '18.0.1.3.0',
     'category': 'Tools',
     'summary': 'API Skills Gateway for OpenClaw and n8n Integration',
     'description': """
@@ -59,6 +59,7 @@ and any HTTP client supporting JSON APIs.
         'views/api_token_views.xml',
         'views/request_log_views.xml',
         'views/webhook_views.xml',
+        'views/config_settings_views.xml',
         'views/menu.xml',
         'data/seed_skills.xml',
         'data/seed_tokens.xml',
