@@ -59,6 +59,7 @@ and any HTTP client supporting JSON APIs.
         'views/api_token_views.xml',
         'views/request_log_views.xml',
         'views/webhook_views.xml',
+        'views/config_settings_views.xml',
         'views/menu.xml',
         'data/seed_skills.xml',
         'data/seed_tokens.xml',

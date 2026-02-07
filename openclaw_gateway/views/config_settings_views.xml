@@ -1,55 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Extend Settings to Include OpenClaw Configuration and Fix Missing Fields -->
+        <!-- Add OpenClaw Configuration Section to Settings -->
         <record id="res_config_settings_view_form_inherit_openclaw" model="ir.ui.view">
             <field name="name">res.config.settings.view.form.inherit.openclaw</field>
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form//sheet" position="inside">
-                    <div class="app_settings_block" data-string="OpenClaw Gateway API" string="OpenClaw Gateway API" data-key="openclaw_gateway">
-                        <h2>OpenClaw Gateway API Configuration</h2>
-                        
+                <div name="integration" position="after">
+                    <div class="app_settings_block" data-string="OpenClaw Gateway" string="OpenClaw Gateway" data-key="openclaw_gateway">
+                        <h2>OpenClaw Gateway API</h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
                                     <field name="invoice_digitalization_enabled"/>
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label string="Invoice Digitalization"/>
+                                    <label string="System Configuration Fix"/>
                                     <div class="text-muted">
-                                        Enable AI-powered invoice data extraction (fixes missing field errors)
+                                        Provides missing invoice digitalization fields to prevent JS errors
                                     </div>
                                     <div class="content-group" attrs="{'invisible': [('invoice_digitalization_enabled', '=', False)]}">
                                         <div class="mt16">
-                                            <field name="extract_in_invoice_digitalization_mode" class="o_light_label"/>
-                                            <div class="text-muted">
-                                                Controls automatic invoice processing behavior
-                                            </div>
-                                        </div>
-                                        <div class="mt16">
-                                            <label for="invoice_extraction_confidence_threshold" string="Confidence Threshold"/>
-                                            <field name="invoice_extraction_confidence_threshold" class="oe_inline"/>
-                                            <div class="text-muted">
-                                                Minimum confidence level for automatic extraction (0.0 to 1.0)
-                                            </div>
+                                            <field name="extract_in_invoice_digitalization_mode"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="row mt32">
+                        <div class="row mt16">
                             <div class="col-12">
-                                <div class="alert alert-info" role="alert">
-                                    <strong>Note:</strong> These settings are provided by OpenClaw Gateway to resolve missing configuration field errors. 
-                                    They add the missing invoice digitalization fields that were causing JavaScript errors in the Settings page.
+                                <div class="alert alert-info">
+                                    <strong>OpenClaw Gateway Status:</strong> Module installed and providing API endpoints.
+                                    <br/>• Health Check: <code>/api/health</code>
+                                    <br/>• Skills API: <code>/api/skills</code> 
+                                    <br/>• Webhook Support: <code>/webhook/n8n/&lt;id&gt;</code>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </xpath>
+                </div>
             </field>
         </record>
     </data>
